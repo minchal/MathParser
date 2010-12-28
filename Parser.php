@@ -5,6 +5,7 @@ class Parser {
 	protected $str;
 	protected $root;
 	
+	protected $ops;
 	protected $operators;
 	
 	public function __construct($str) {
@@ -14,21 +15,26 @@ class Parser {
 		
 		$this -> str = $str;
 		
+		$this -> ops = array('*','+','/','-','^','(',')');
+		
+		$this -> operators[] = new Operator_Power();
+		$this -> operators[] = new Operator_Modulo();
+		$this -> operators[] = new Operator_Divide();
 		$this -> operators[] = new Operator_Multi();
+		$this -> operators[] = new Operator_Minus();
 		$this -> operators[] = new Operator_Add();
 		
 		$this -> parse();
 	}
 	
 	public function parse() {
-		$tokenizer = new Tokenizer($this -> str, array('*','+','(',')'));
+		$tokenizer = new Tokenizer($this -> str, $this -> ops);
 		
 		$this -> root = $this -> parseTokens($tokenizer -> getTokens());
 	}
 	
 	/**
 	 * Złączenie wszystkich tokenów w jedną wartość.
-	 * 
 	 */
 	protected function parseTokens($tokens) {
 		$tokens = $this -> parseBrackets($tokens);
@@ -38,7 +44,7 @@ class Parser {
 			$tokens = $op -> group($tokens);
 		}
 		
-		//print_r($tokens);
+		print_r($tokens);
 		
 		if (count($tokens) > 1) {
 			throw new Parser_Exception('Coś poszło całkiem nie tak. Zostały niezgrupowane Tokeny.');
