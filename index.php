@@ -1,17 +1,18 @@
 <?php
 
 function __autoload($class) {
-	require str_replace('_', '/', $class);
+	require str_replace('_', '/', $class) . '.php';
 }
 
 function testStr($str) {
 	try {
 		eval('$r='.$str.';');
-		echo 'Input: '.$str .'='.$r ."\n";
-		$t = new Tokenizer($str);
 		
-		echo 'Output: '.$t -> getValue() ."\n";
-		echo 'As string: '.$t -> toString() ."\n";
+		echo 'Input: ' . $str .'='.$r ."\n";
+		$t = new Parser($str);
+		
+		echo 'Output: ' . $t -> getValue() ."\n";
+		echo 'As string: ' . $t ."\n";
 	} catch (Exception $e) {
 		echo $e -> getMessage() ."\n";
 	}
