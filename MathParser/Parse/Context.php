@@ -1,7 +1,17 @@
 <?php
+/**
+ * MathParser library.
+ * 
+ * @author   Michał Pawłowski <michal@pawlowski.be>
+ * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
+ */
 
 namespace MathParser\Parse;
 
+/**
+ * Context for Parser.
+ * Holds variables, functions and operators.
+ */
 class Context {
 	
 	protected $functions = array();
@@ -9,6 +19,13 @@ class Context {
 	protected $variables = array();
 	protected $listeners = array();
 	
+	/**
+	 * Context constructor.
+	 * All arguments are optional.
+	 * 
+	 * @param Array $operators Operator/IOperator instances.
+	 * @param Array $functions Fun/IFun instances.
+	 */
 	public function __construct($operators = null, $functions = null) {
 		if ($operators === null) {
 			$operators = self::getDefaultOperators();
@@ -27,10 +44,16 @@ class Context {
 		}
 	}
 	
+	/**
+	 * Add listener for change context event.
+	 */
 	public function addChangeListener(ContextListener $lis) {
 		$this -> listeners[] = $lis;
 	}
 	
+	/**
+	 * Get delimiters for Tokenizer for all collected items.
+	 */
 	public function getDelimiters() {
 		$ops = array('(',')',',');
 		
@@ -49,6 +72,11 @@ class Context {
 		return $ops;
 	}
 	
+	/**
+	 * Add function or operator.
+	 * 
+	 * @param Fun\IFun|Operator\IOperator $item
+	 */
 	public function add($item) {
 		if ($item instanceof Fun\IFun) {
 			$this -> functions[$item->getDelimiter()] = $item;
@@ -65,6 +93,12 @@ class Context {
 		throw new \Exception('Nierozpoznany obiekt do dodania do kontekstu.');
 	}
 	
+	/**
+	 * Set variable.
+	 * 
+	 * @param string                 $name  Variable name.
+	 * @param int|float|Value\IValue $value Optional value.
+	 */
 	public function setVariable($name, $value = 0) {
 		$refresh = !isset($this -> variables[$name]);
 		
@@ -75,10 +109,20 @@ class Context {
 		}
 	}
 	
+	/**
+	 * Is $name reserved as variable.
+	 * 
+	 * @param string $name Variable name.
+	 */
 	public function isVariable($name) {
 		return isset($this -> variables[$name]);
 	}
 	
+	/**
+	 * Get variable value.
+	 * 
+	 * @param string $name Variable name.
+	 */
 	public function getVariable($name) {
 		if (isset($this -> variables[$name])) {
 			return $this -> variables[$name];
@@ -87,6 +131,12 @@ class Context {
 		return 0;
 	}
 	
+	/**
+	 * Get operator instance.
+	 * 
+	 * @param string $name Operator name.
+	 * @return Operator\IOperator
+	 */
 	public function getOperator($name) {
 		if (isset($this -> operators[$name])) {
 			return $this -> operators[$name];
@@ -95,6 +145,12 @@ class Context {
 		return null;
 	}
 	
+	/**
+	 * Get function instance.
+	 * 
+	 * @param string $name Function name.
+	 * @return Fun\IFun
+	 */
 	public function getFunction($name) {
 		if (isset($this -> functions[$name])) {
 			return $this -> functions[$name];
@@ -104,7 +160,7 @@ class Context {
 	}
 	
 	/**
-	 * Powiadomienie słuchaczy, że kontekst uległ zmianie.
+	 * Notify listeners, that context has changed.
 	 */
 	protected function notify() {
 		foreach ($this -> listeners as $l) {
@@ -113,7 +169,7 @@ class Context {
 	}
 	
 	/**
-	 * Zwraca domyślną listę operatorów.
+	 * Get default operator list.
 	 * 
 	 * @return Array
 	 */
@@ -129,7 +185,7 @@ class Context {
 	}
 	
 	/**
-	 * Zwraca domyślną listę funkcji.
+	 * Get default functions list.
 	 * 
 	 * @return Array
 	 */

@@ -1,8 +1,17 @@
 <?php
+/**
+ * MathParser library.
+ * 
+ * @author   Michał Pawłowski <michal@pawlowski.be>
+ * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
+ */
 
 namespace MathParser\Parse\Value;
 use MathParser\Parse\Context;
 
+/**
+ * Variable holds context and gets value when calculating.
+ */
 class Variable implements IValue {
 	
 	protected $name;
@@ -10,7 +19,7 @@ class Variable implements IValue {
 	
 	public function getValue() {
 		$val = $this -> context -> getVariable($this -> name);
-		return $val instanceof Ivalue ? $val->getValue() : $val;
+		return $val instanceof IValue ? $val->getValue() : $val;
 	}
 	
 	public function setName($name) {

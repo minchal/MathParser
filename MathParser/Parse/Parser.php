@@ -1,15 +1,31 @@
 <?php
+/**
+ * MathParser library.
+ * 
+ * @author   Michał Pawłowski <michal@pawlowski.be>
+ * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
+ */
 
 namespace MathParser\Parse;
 use MathParser\Tokenize\Tokenizer;
 
+/**
+ * MathParser main class.
+ * 
+ * <code>
+ * $parser = new Parser();
+ * $value = $parser -> parse('2+2*2');
+ * </code>
+ */
 class Parser implements ContextListener {
 	
 	protected $tokenizer;
 	protected $context;
 	
 	/**
-	 * @param Array $operators Opcjonalna lista operatorów.
+	 * Parser constructor.
+	 * 
+	 * @param Context $context
 	 */
 	public function __construct($context = null) {
 		if (!$context) {
@@ -29,16 +45,16 @@ class Parser implements ContextListener {
 	}
 	
 	/**
-	 * Zwraca Context tej instancji parsera.
+	 * Get current Context.
 	 * 
-	 * @return MathParser\Parse\Context
+	 * @return Context
 	 */
 	public function getContext() {
 		return $this -> context;
 	}
 	
 	/**
-	 * Zwraca Tokenizer przygotowany dla tej instancji Parsera.
+	 * Get Tokenizer created for this instance of Parser.
 	 * 
 	 * @return MathParser\Tokenize\Tokenizer
 	 */
@@ -47,10 +63,10 @@ class Parser implements ContextListener {
 	}
 	
 	/**
-	 * Obliczenie wartości wyrażenia zapisanego jako string.
+	 * Parse string to Value objects tree.
 	 * 
 	 * @param String $str Wyrażenie
-	 * @return Value\Value
+	 * @return Value\IValue
 	 */
 	public function parse($str) {
 		return 
@@ -62,10 +78,11 @@ class Parser implements ContextListener {
 	}
 	
 	/**
-	 * Zmiana tokenów w ONP na wartość.
+	 * Change tokens array in RPN to Value object.
 	 * 
-	 * @param Array $tokens Tablica tokenów
-	 * @return Value\Value
+	 * @see http://en.wikipedia.org/wiki/Reverse_Polish_notation
+	 * @param Array $tokens Tokens in RPN
+	 * @return Value\IValue
 	 */
 	public function postfixToValue($tokens) {
 		$stack = array();
@@ -114,9 +131,9 @@ class Parser implements ContextListener {
 	}
 	
 	/**
-	 * Zmiana kolejności tokenów z notacji infiksowej do ONP.
+	 * Change tokens array in infix notation to RPN.
 	 * 
-	 * @param Array $tokens Tablica tokenów
+	 * @param Array $tokens
 	 * @return Array
 	 */
 	public function infixToPostfix($tokens) {
