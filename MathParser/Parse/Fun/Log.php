@@ -7,7 +7,7 @@
  */
 
 namespace MathParser\Parse\Fun;
-use MathParser\Parse\Value;
+use MathParser\Compute;
 
 class Log implements IFun {
 	public function getDelimiter() {
@@ -19,7 +19,7 @@ class Log implements IFun {
 	}
 	
 	public function createValue($args) {
-		$value = new Value\FunLog();
+		$value = new Compute\FunLog();
 		$value -> setArgs($args);
 		return $value;
 	}

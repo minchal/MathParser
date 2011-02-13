@@ -51,7 +51,7 @@ class Tokenizer {
 		$bufferIndex = 0;
 		$found = '';
 		
-		while ($buffer) {
+		while (strlen($buffer)) {
 			$matches = array();
 			
 			// whitespace

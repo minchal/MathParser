@@ -6,12 +6,18 @@
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
 
-namespace MathParser\Parse\Value;
+namespace MathParser\Compute;
 
 class Modulo extends LeftRight implements IValue {
 	
 	public function getValue() {
-		return $this->left->getValue() % $this->right->getValue();
+		$right = $this->right->getValue();
+		
+		if ($right == 0) {
+			throw new Exception('Division by zero!');
+		}
+		
+		return $this->left->getValue() % $right;
 	}
 	
 	public function toInfixString() {

@@ -7,7 +7,7 @@
  */
 
 namespace MathParser\Parse\Operator;
-use MathParser\Parse\Value;
+use MathParser\Compute;
 
 class Divide implements IOperator {
 	
@@ -28,7 +28,7 @@ class Divide implements IOperator {
 	}
 	
 	public function createValue($args) {
-		$value = new Value\Divide();
+		$value = new Compute\Divide();
 		$value -> setLeft($args[0]);
 		$value -> setRight($args[1]);
 		return $value;

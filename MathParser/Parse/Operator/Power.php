@@ -7,7 +7,7 @@
  */
 
 namespace MathParser\Parse\Operator;
-use MathParser\Parse\Value;
+use MathParser\Compute;
 
 class Power implements IOperator {
 	
@@ -28,7 +28,7 @@ class Power implements IOperator {
 	}
 	
 	public function createValue($args) {
-		$value = new Value\Power();
+		$value = new Compute\Power();
 		$value -> setLeft($args[0]);
 		$value -> setRight($args[1]);
 		return $value;

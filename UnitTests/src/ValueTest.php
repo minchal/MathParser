@@ -1,8 +1,8 @@
 <?php
 
-use MathParser\Parse\Value\Number;
-use MathParser\Parse\Value\Add;
-use MathParser\Parse\Value\Multi;
+use MathParser\Compute\Number;
+use MathParser\Compute\Add;
+use MathParser\Compute\Multi;
 
 class ValueTest extends PHPUnit_Framework_TestCase {
 	

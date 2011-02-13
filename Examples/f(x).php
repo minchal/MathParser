@@ -133,7 +133,7 @@ if (isset($_POST['query'])) {
 		$chart -> output();
 		
 	} catch (Exception $e) {
-		echo '<p style="color:red">Exception:: '.$e->getMessage().'</p>';
+		echo '<p style="color:red">Exception: '.$e->getMessage().'</p>';
 	}
 	
 } else {

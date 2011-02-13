@@ -6,7 +6,7 @@
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
 
-namespace MathParser\Parse\Value;
+namespace MathParser\Compute;
 
 class Power extends LeftRight implements IValue {
 	

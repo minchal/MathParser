@@ -7,7 +7,7 @@
  */
 
 namespace MathParser\Parse\Operator;
-use MathParser\Parse\Value;
+use MathParser\Compute;
 
 class Multi implements IOperator {
 	
@@ -28,7 +28,7 @@ class Multi implements IOperator {
 	}
 	
 	public function createValue($args) {
-		$value = new Value\Multi();
+		$value = new Compute\Multi();
 		$value -> setLeft($args[0]);
 		$value -> setRight($args[1]);
 		return $value;

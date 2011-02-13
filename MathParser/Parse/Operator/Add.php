@@ -7,7 +7,7 @@
  */
 
 namespace MathParser\Parse\Operator;
-use MathParser\Parse\Value;
+use MathParser\Compute;
 
 class Add implements IOperator {
 	
@@ -28,7 +28,7 @@ class Add implements IOperator {
 	}
 	
 	public function createValue($args) {
-		$value = new Value\Add();
+		$value = new Compute\Add();
 		$value -> setLeft($args[0]);
 		$value -> setRight($args[1]);
 		return $value;

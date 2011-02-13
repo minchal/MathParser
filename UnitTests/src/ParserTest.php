@@ -56,6 +56,16 @@ class ParserTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($root -> toInfixString(), '(2+(2*2))');
 	}
 	
+	public function testMinus() {
+		/*$root = $this -> p -> parse('-2');
+		$this->assertEquals($root -> getValue(), -2);
+		$this->assertEquals($root -> toInfixString(), '(-2)');
+		
+		$root = $this -> p -> parse('3*-2');
+		$this->assertEquals($root -> getValue(), -6);
+		$this->assertEquals($root -> toInfixString(), '(3*(-2))');*/
+	}
+	
 	public function testBrackets() {
 		$root = $this -> p -> parse('(2+2)*2');
 		$this->assertEquals($root -> getValue(), 8);
@@ -85,7 +95,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($root -> getValue(), exp(2));
 		$this->assertEquals($root -> toInfixString(), 'exp(2)');
 		
-		
 		$root = $this -> p -> parse('exp(2)+2');
 		$this->assertEquals($root -> getValue(), exp(2)+2);
 		$this->assertEquals($root -> toInfixString(), '(exp(2)+2)');
@@ -111,14 +120,5 @@ class ParserTest extends PHPUnit_Framework_TestCase {
 		$c -> setVariable('B', 5);
 		$root = $p -> parse('A+B');
 		$this->assertEquals($root -> getValue(), 20+5);
-	}
-	
-	public function testComplex() {
-		$root = $this -> p -> parse('3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3');
-		$this->assertEquals(3.0001220703125, $root -> getValue());
-		
-		$root = $this -> p -> parse('(log(10^2,exp(3e4)) + 7 ^3)/5 + 9.43');
-		$this->assertEquals($root -> getValue(), (log(pow(10,2),exp(3e4)) + pow(7,3))/5 + 9.43);
-		$this->assertEquals($root -> toInfixString(), '(((log((10^2), exp(30000))+(7^3))/5)+9.43)');
 	}
 }

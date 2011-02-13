@@ -8,6 +8,7 @@
 
 namespace MathParser\Parse;
 use MathParser\Tokenize\Tokenizer;
+use MathParser\Compute;
 
 /**
  * MathParser main class.
@@ -66,7 +67,7 @@ class Parser implements ContextListener {
 	 * Parse string to Value objects tree.
 	 * 
 	 * @param String $str Wyrażenie
-	 * @return Value\IValue
+	 * @return Compute\IValue
 	 */
 	public function parse($str) {
 		return 
@@ -82,21 +83,21 @@ class Parser implements ContextListener {
 	 * 
 	 * @see http://en.wikipedia.org/wiki/Reverse_Polish_notation
 	 * @param Array $tokens Tokens in RPN
-	 * @return Value\IValue
+	 * @return Compute\IValue
 	 */
 	public function postfixToValue($tokens) {
 		$stack = array();
 		
 		foreach ($tokens as $token) {
 			if ($token -> isNumber()) {
-				$number = new Value\Number();
+				$number = new Compute\Number();
 				$number -> setValue($token -> getStr());
 				array_push($stack, $number);
 				continue;
 			}
 			
 			if ($this -> context -> isVariable($token -> getStr())) {
-				$number = new Value\Variable();
+				$number = new Compute\Variable();
 				$number -> setName($token -> getStr());
 				$number -> setContext($this -> context);
 				array_push($stack, $number);

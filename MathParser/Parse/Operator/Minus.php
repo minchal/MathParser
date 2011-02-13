@@ -7,7 +7,7 @@
  */
 
 namespace MathParser\Parse\Operator;
-use MathParser\Parse\Value;
+use MathParser\Compute;
 
 class Minus implements IOperator {
 	
@@ -28,7 +28,7 @@ class Minus implements IOperator {
 	}
 	
 	public function createValue($args) {
-		$value = new Value\Minus();
+		$value = new Compute\Minus();
 		$value -> setLeft($args[0]);
 		$value -> setRight($args[1]);
 		return $value;

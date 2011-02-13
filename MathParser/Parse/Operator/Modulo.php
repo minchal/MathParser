@@ -7,7 +7,7 @@
  */
 
 namespace MathParser\Parse\Operator;
-use MathParser\Parse\Value;
+use MathParser\Compute;
 
 class Modulo implements IOperator {
 	
@@ -28,7 +28,7 @@ class Modulo implements IOperator {
 	}
 	
 	public function createValue($args) {
-		$value = new Value\Modulo();
+		$value = new Compute\Modulo();
 		$value -> setLeft($args[0]);
 		$value -> setRight($args[1]);
 		return $value;
